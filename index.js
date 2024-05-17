@@ -38,19 +38,42 @@ return choice
 
 function getHumanChoice() {
 
-    let choice = "";
-
-    let selection = prompt("press '1' for ROCK, '2' for PAPER, '3' for SCISSORS");
-
-    if (selection === "1") {
-        choice = "rock";
-    } else if (selection === '2') {
-        choice = "paper";
-    } else if (selection === '3') {
-        choice = "scissors"
-    }
+    let choice = prompt("choose 'rock', 'paper', or 'scissors'");
 
     return choice;
 }
 
-console.log(getHumanChoice());
+// console.log(getHumanChoice());
+
+// initialize player score variables
+let humanScore = 0;
+let computerScore = 0;
+
+
+/* 
+initialize function named playRound- take in both choices as parameters
+make human choice case insensitive
+logic: rock beats scissors, scissors beats paper, paper beats rock
+logic: if choices are the same- console log tie message
+logic: if human choice beats computer choice- console log win message, increment human score
+logic: if computer choice beats human choice- console log lose message, increment computer score
+*/
+function playRound(humanChoice, computerChoice) {
+    humanChoice = humanChoice.toLowerCase();
+
+    if ((humanChoice === "rock" && computerChoice === "rock") || (humanChoice === "paper" && computerChoice === "paper") || (humanChoice === "scissors" && computerChoice === "scissors")) {
+        console.log("Draw! Try Again...")
+    } else if((humanChoice === "rock" && computerChoice === "scissors") || (humanChoice === "paper" && computerChoice === "rock") || (humanChoice === "scissors" && computerChoice === "paper")) {
+        humanScore++;
+        console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+    } else if((humanChoice === "scissors" && computerChoice === "rock") || (humanChoice === "rock" && computerChoice === "paper") || (humanChoice === "paper" && computerChoice === "scissors")) {
+        computerScore++;
+        console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+    }
+}
+
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
+
+playRound(humanSelection, computerSelection);
+  
